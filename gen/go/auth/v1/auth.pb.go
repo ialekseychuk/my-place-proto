@@ -133,9 +133,10 @@ type User struct {
 	LastName      string                 `protobuf:"bytes,4,opt,name=last_name,json=lastName,proto3" json:"last_name,omitempty"`
 	Email         string                 `protobuf:"bytes,5,opt,name=email,proto3" json:"email,omitempty"`
 	Phone         string                 `protobuf:"bytes,6,opt,name=phone,proto3" json:"phone,omitempty"`
-	IsActive      bool                   `protobuf:"varint,7,opt,name=is_active,json=isActive,proto3" json:"is_active,omitempty"`
-	CreatedAt     string                 `protobuf:"bytes,8,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	UpdatedAt     string                 `protobuf:"bytes,9,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	Role          string                 `protobuf:"bytes,7,opt,name=role,proto3" json:"role,omitempty"`
+	IsActive      bool                   `protobuf:"varint,8,opt,name=is_active,json=isActive,proto3" json:"is_active,omitempty"`
+	CreatedAt     string                 `protobuf:"bytes,9,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt     string                 `protobuf:"bytes,910,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -208,6 +209,13 @@ func (x *User) GetEmail() string {
 func (x *User) GetPhone() string {
 	if x != nil {
 		return x.Phone
+	}
+	return ""
+}
+
+func (x *User) GetRole() string {
+	if x != nil {
+		return x.Role
 	}
 	return ""
 }
@@ -313,7 +321,7 @@ const file_auth_v1_auth_proto_rawDesc = "" +
 	"\x04user\x18\x01 \x01(\v2\n" +
 	".auth.UserR\x04user\x12.\n" +
 	"\n" +
-	"auth_token\x18\x02 \x01(\v2\x0f.auth.AuthTokenR\tauthToken\"\xfa\x01\n" +
+	"auth_token\x18\x02 \x01(\v2\x0f.auth.AuthTokenR\tauthToken\"\x8f\x02\n" +
 	"\x04User\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1f\n" +
 	"\vbusiness_id\x18\x02 \x01(\tR\n" +
@@ -322,12 +330,13 @@ const file_auth_v1_auth_proto_rawDesc = "" +
 	"first_name\x18\x03 \x01(\tR\tfirstName\x12\x1b\n" +
 	"\tlast_name\x18\x04 \x01(\tR\blastName\x12\x14\n" +
 	"\x05email\x18\x05 \x01(\tR\x05email\x12\x14\n" +
-	"\x05phone\x18\x06 \x01(\tR\x05phone\x12\x1b\n" +
-	"\tis_active\x18\a \x01(\bR\bisActive\x12\x1d\n" +
+	"\x05phone\x18\x06 \x01(\tR\x05phone\x12\x12\n" +
+	"\x04role\x18\a \x01(\tR\x04role\x12\x1b\n" +
+	"\tis_active\x18\b \x01(\bR\bisActive\x12\x1d\n" +
 	"\n" +
-	"created_at\x18\b \x01(\tR\tcreatedAt\x12\x1d\n" +
+	"created_at\x18\t \x01(\tR\tcreatedAt\x12\x1e\n" +
 	"\n" +
-	"updated_at\x18\t \x01(\tR\tupdatedAt\"\x91\x01\n" +
+	"updated_at\x18\x8e\a \x01(\tR\tupdatedAt\"\x91\x01\n" +
 	"\tAuthToken\x12!\n" +
 	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
 	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\x12\x1d\n" +

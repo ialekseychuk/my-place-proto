@@ -28,9 +28,10 @@ message User {
   string last_name= 4;
   string email= 5;
   string phone= 6;
-  bool is_active= 7;
-  string created_at= 8;
-  string updated_at= 9;
+  string role= 7;
+  bool is_active= 8;
+  string created_at= 9;
+  string updated_at= 910;
 }
 
 message AuthToken {
