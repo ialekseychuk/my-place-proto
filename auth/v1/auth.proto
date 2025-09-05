@@ -1,14 +1,14 @@
-syntax = "proto3"
+syntax = "proto3";
 
 package auth;
-option go_package = "./proto";
+option go_package = "github.com/ialekseychuk/my-place-proto/gen/go/auth/v1;authv1";
 
 service Auth {
   rpc Login(LoginRequest) returns (LoginResponse);
-  rpc ValidateToken(ValidateTokenRequest) returns (ValidateTokenResponse);
-  rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
-  rpc Logout(LogoutRequest) returns (LogoutResponse);
-  rpc GetUser(GetUserRequest) returns (GetUserResponse);
+//  rpc ValidateToken(ValidateTokenRequest) returns (ValidateTokenResponse);
+ // rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
+  //rpc Logout(LogoutRequest) returns (LogoutResponse);
+  //rpc GetUser(GetUserRequest) returns (GetUserResponse);
 }
 
 message LoginRequest {
@@ -17,7 +17,8 @@ message LoginRequest {
 }
 
 message LoginResponse {
-
+  User user= 1;
+  AuthToken auth_token= 2;
 }
 
 message User {

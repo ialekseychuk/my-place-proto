@@ -1,4 +1,2 @@
 version: v1
-build:
-  roots:
-    - .
+name: buf.build/ialekseychuk/my-place-proto
