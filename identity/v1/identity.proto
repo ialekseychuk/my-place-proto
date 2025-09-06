@@ -6,7 +6,7 @@ option go_package = "github.com/ialekseychuk/my-place-proto/gen/go/identity/v1;i
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
 
-service Auth {
+service Identity {
   rpc Login(LoginRequest) returns (LoginResponse);
   rpc Register(RegisterRequest) returns (RegisterResponse);
   rpc Logout(LogoutRequest) returns (LogoutResponse);
