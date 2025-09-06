@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package auth;
-option go_package = "github.com/ialekseychuk/my-place-proto/gen/go/auth/v1;authv1";
+option go_package = "github.com/ialekseychuk/my-place-proto/gen/go/identity/v1;identityv1";
 
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";

@@ -4,7 +4,7 @@
 // - protoc             (unknown)
 // source: identity/v1/identity.proto
 
-package authv1
+package identityv1
 
 import (
 	context "context"
