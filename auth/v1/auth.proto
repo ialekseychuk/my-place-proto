@@ -3,6 +3,8 @@ syntax = "proto3";
 package auth;
 option go_package = "github.com/ialekseychuk/my-place-proto/gen/go/auth/v1;authv1";
 
+import "google/protobuf/timestamp.proto";
+
 service Auth {
   rpc Login(LoginRequest) returns (LoginResponse);
 //  rpc ValidateToken(ValidateTokenRequest) returns (ValidateTokenResponse);
@@ -37,7 +39,7 @@ message User {
 message AuthToken {
   string access_token= 1;
   string refresh_token= 2;
-  string expired_at= 3;
+  google.protobuf.Timestamp expired_at = 3;
   string token_type= 4;
 }
 
