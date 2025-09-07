@@ -19,12 +19,12 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Identity_Login_FullMethodName         = "/auth.Identity/Login"
-	Identity_Register_FullMethodName      = "/auth.Identity/Register"
-	Identity_Logout_FullMethodName        = "/auth.Identity/Logout"
-	Identity_RefreshToken_FullMethodName  = "/auth.Identity/RefreshToken"
-	Identity_ValidateToken_FullMethodName = "/auth.Identity/ValidateToken"
-	Identity_GetMe_FullMethodName         = "/auth.Identity/GetMe"
+	Identity_Login_FullMethodName         = "/identity.Identity/Login"
+	Identity_Register_FullMethodName      = "/identity.Identity/Register"
+	Identity_Logout_FullMethodName        = "/identity.Identity/Logout"
+	Identity_RefreshToken_FullMethodName  = "/identity.Identity/RefreshToken"
+	Identity_ValidateToken_FullMethodName = "/identity.Identity/ValidateToken"
+	Identity_GetMe_FullMethodName         = "/identity.Identity/GetMe"
 )
 
 // IdentityClient is the client API for Identity service.
@@ -263,7 +263,7 @@ func _Identity_GetMe_Handler(srv interface{}, ctx context.Context, dec func(inte
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Identity_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "auth.Identity",
+	ServiceName: "identity.Identity",
 	HandlerType: (*IdentityServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
