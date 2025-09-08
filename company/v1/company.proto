@@ -10,10 +10,12 @@ service Company {
     rpc CreateBussiness(CreateBusinessRequest) returns (CreateBusinessResponse);
     rpc GetBussiness(GetBusinessRequest) returns (GetBusinessResponse);
   //  rpc UpdateBussiness(UpdateBusinessRequest) returns (UpdateBusinessResponse);
-    rpc GetBussinesByOwner(GetBussinesByOwnerRequest) returns (ListBusinessResponse);
+    rpc GetBussinessByOwner(GetBussinesByOwnerRequest) returns (GetBusinessResponse);
 
     // --- locations---
     rpc CreateLocation(CreateLocationRequest) returns (CreateLocationResponse);
+    // rpc GetLocation(GetLocationRequest) returns (GetLocationResponse);
+    // rpc GetLocations(GetLocationsListRequest) returns (ListLocationsResponse);
 }
 
 message CreateBusinessRequest {
@@ -43,10 +45,11 @@ message ListBusinessResponse {
 message Bussiness {
   string id         = 1;
   string name       = 2;
-  string timezone   = 3;
-  string owner_id   = 4;
-  google.protobuf.Timestamp created_at = 5;
-  google.protobuf.Timestamp updated_at = 6;
+  string description = 3;
+  string timezone   = 4;
+  string owner_id   = 5;
+  google.protobuf.Timestamp created_at = 6;
+  google.protobuf.Timestamp updated_at = 7;
 }
 
 

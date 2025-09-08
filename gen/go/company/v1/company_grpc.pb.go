@@ -19,10 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Company_CreateBussiness_FullMethodName    = "/company.Company/CreateBussiness"
-	Company_GetBussiness_FullMethodName       = "/company.Company/GetBussiness"
-	Company_GetBussinesByOwner_FullMethodName = "/company.Company/GetBussinesByOwner"
-	Company_CreateLocation_FullMethodName     = "/company.Company/CreateLocation"
+	Company_CreateBussiness_FullMethodName     = "/company.Company/CreateBussiness"
+	Company_GetBussiness_FullMethodName        = "/company.Company/GetBussiness"
+	Company_GetBussinessByOwner_FullMethodName = "/company.Company/GetBussinessByOwner"
+	Company_CreateLocation_FullMethodName      = "/company.Company/CreateLocation"
 )
 
 // CompanyClient is the client API for Company service.
@@ -32,7 +32,7 @@ type CompanyClient interface {
 	CreateBussiness(ctx context.Context, in *CreateBusinessRequest, opts ...grpc.CallOption) (*CreateBusinessResponse, error)
 	GetBussiness(ctx context.Context, in *GetBusinessRequest, opts ...grpc.CallOption) (*GetBusinessResponse, error)
 	// rpc UpdateBussiness(UpdateBusinessRequest) returns (UpdateBusinessResponse);
-	GetBussinesByOwner(ctx context.Context, in *GetBussinesByOwnerRequest, opts ...grpc.CallOption) (*ListBusinessResponse, error)
+	GetBussinessByOwner(ctx context.Context, in *GetBussinesByOwnerRequest, opts ...grpc.CallOption) (*GetBusinessResponse, error)
 	// --- locations---
 	CreateLocation(ctx context.Context, in *CreateLocationRequest, opts ...grpc.CallOption) (*CreateLocationResponse, error)
 }
@@ -63,9 +63,9 @@ func (c *companyClient) GetBussiness(ctx context.Context, in *GetBusinessRequest
 	return out, nil
 }
 
-func (c *companyClient) GetBussinesByOwner(ctx context.Context, in *GetBussinesByOwnerRequest, opts ...grpc.CallOption) (*ListBusinessResponse, error) {
-	out := new(ListBusinessResponse)
-	err := c.cc.Invoke(ctx, Company_GetBussinesByOwner_FullMethodName, in, out, opts...)
+func (c *companyClient) GetBussinessByOwner(ctx context.Context, in *GetBussinesByOwnerRequest, opts ...grpc.CallOption) (*GetBusinessResponse, error) {
+	out := new(GetBusinessResponse)
+	err := c.cc.Invoke(ctx, Company_GetBussinessByOwner_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -88,7 +88,7 @@ type CompanyServer interface {
 	CreateBussiness(context.Context, *CreateBusinessRequest) (*CreateBusinessResponse, error)
 	GetBussiness(context.Context, *GetBusinessRequest) (*GetBusinessResponse, error)
 	// rpc UpdateBussiness(UpdateBusinessRequest) returns (UpdateBusinessResponse);
-	GetBussinesByOwner(context.Context, *GetBussinesByOwnerRequest) (*ListBusinessResponse, error)
+	GetBussinessByOwner(context.Context, *GetBussinesByOwnerRequest) (*GetBusinessResponse, error)
 	// --- locations---
 	CreateLocation(context.Context, *CreateLocationRequest) (*CreateLocationResponse, error)
 	mustEmbedUnimplementedCompanyServer()
@@ -104,8 +104,8 @@ func (UnimplementedCompanyServer) CreateBussiness(context.Context, *CreateBusine
 func (UnimplementedCompanyServer) GetBussiness(context.Context, *GetBusinessRequest) (*GetBusinessResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBussiness not implemented")
 }
-func (UnimplementedCompanyServer) GetBussinesByOwner(context.Context, *GetBussinesByOwnerRequest) (*ListBusinessResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetBussinesByOwner not implemented")
+func (UnimplementedCompanyServer) GetBussinessByOwner(context.Context, *GetBussinesByOwnerRequest) (*GetBusinessResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetBussinessByOwner not implemented")
 }
 func (UnimplementedCompanyServer) CreateLocation(context.Context, *CreateLocationRequest) (*CreateLocationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateLocation not implemented")
@@ -159,20 +159,20 @@ func _Company_GetBussiness_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Company_GetBussinesByOwner_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Company_GetBussinessByOwner_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetBussinesByOwnerRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CompanyServer).GetBussinesByOwner(ctx, in)
+		return srv.(CompanyServer).GetBussinessByOwner(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Company_GetBussinesByOwner_FullMethodName,
+		FullMethod: Company_GetBussinessByOwner_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CompanyServer).GetBussinesByOwner(ctx, req.(*GetBussinesByOwnerRequest))
+		return srv.(CompanyServer).GetBussinessByOwner(ctx, req.(*GetBussinesByOwnerRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -211,8 +211,8 @@ var Company_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Company_GetBussiness_Handler,
 		},
 		{
-			MethodName: "GetBussinesByOwner",
-			Handler:    _Company_GetBussinesByOwner_Handler,
+			MethodName: "GetBussinessByOwner",
+			Handler:    _Company_GetBussinessByOwner_Handler,
 		},
 		{
 			MethodName: "CreateLocation",
