@@ -32,7 +32,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CompanyClient interface {
 	// Create Company and default location
-	RegisterBusiness(ctx context.Context, in *RegisterBusinessRequest, opts ...grpc.CallOption) (*RegisterBusinessRequest, error)
+	RegisterBusiness(ctx context.Context, in *RegisterBusinessRequest, opts ...grpc.CallOption) (*RegisterBusinessResponse, error)
 	// Create only business
 	CreateBusiness(ctx context.Context, in *CreateBusinessRequest, opts ...grpc.CallOption) (*CreateBusinessResponse, error)
 	GetBusiness(ctx context.Context, in *GetBusinessRequest, opts ...grpc.CallOption) (*GetBusinessResponse, error)
@@ -51,8 +51,8 @@ func NewCompanyClient(cc grpc.ClientConnInterface) CompanyClient {
 	return &companyClient{cc}
 }
 
-func (c *companyClient) RegisterBusiness(ctx context.Context, in *RegisterBusinessRequest, opts ...grpc.CallOption) (*RegisterBusinessRequest, error) {
-	out := new(RegisterBusinessRequest)
+func (c *companyClient) RegisterBusiness(ctx context.Context, in *RegisterBusinessRequest, opts ...grpc.CallOption) (*RegisterBusinessResponse, error) {
+	out := new(RegisterBusinessResponse)
 	err := c.cc.Invoke(ctx, Company_RegisterBusiness_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -110,7 +110,7 @@ func (c *companyClient) GetLocation(ctx context.Context, in *GetLocationRequest,
 // for forward compatibility
 type CompanyServer interface {
 	// Create Company and default location
-	RegisterBusiness(context.Context, *RegisterBusinessRequest) (*RegisterBusinessRequest, error)
+	RegisterBusiness(context.Context, *RegisterBusinessRequest) (*RegisterBusinessResponse, error)
 	// Create only business
 	CreateBusiness(context.Context, *CreateBusinessRequest) (*CreateBusinessResponse, error)
 	GetBusiness(context.Context, *GetBusinessRequest) (*GetBusinessResponse, error)
@@ -126,7 +126,7 @@ type CompanyServer interface {
 type UnimplementedCompanyServer struct {
 }
 
-func (UnimplementedCompanyServer) RegisterBusiness(context.Context, *RegisterBusinessRequest) (*RegisterBusinessRequest, error) {
+func (UnimplementedCompanyServer) RegisterBusiness(context.Context, *RegisterBusinessRequest) (*RegisterBusinessResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RegisterBusiness not implemented")
 }
 func (UnimplementedCompanyServer) CreateBusiness(context.Context, *CreateBusinessRequest) (*CreateBusinessResponse, error) {
