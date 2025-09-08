@@ -23,6 +23,7 @@ const (
 	Company_GetBussiness_FullMethodName        = "/company.Company/GetBussiness"
 	Company_GetBussinessByOwner_FullMethodName = "/company.Company/GetBussinessByOwner"
 	Company_CreateLocation_FullMethodName      = "/company.Company/CreateLocation"
+	Company_GetLocation_FullMethodName         = "/company.Company/GetLocation"
 )
 
 // CompanyClient is the client API for Company service.
@@ -35,6 +36,7 @@ type CompanyClient interface {
 	GetBussinessByOwner(ctx context.Context, in *GetBussinesByOwnerRequest, opts ...grpc.CallOption) (*GetBusinessResponse, error)
 	// --- locations---
 	CreateLocation(ctx context.Context, in *CreateLocationRequest, opts ...grpc.CallOption) (*CreateLocationResponse, error)
+	GetLocation(ctx context.Context, in *GetLocationRequest, opts ...grpc.CallOption) (*GetLocationResponse, error)
 }
 
 type companyClient struct {
@@ -81,6 +83,15 @@ func (c *companyClient) CreateLocation(ctx context.Context, in *CreateLocationRe
 	return out, nil
 }
 
+func (c *companyClient) GetLocation(ctx context.Context, in *GetLocationRequest, opts ...grpc.CallOption) (*GetLocationResponse, error) {
+	out := new(GetLocationResponse)
+	err := c.cc.Invoke(ctx, Company_GetLocation_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CompanyServer is the server API for Company service.
 // All implementations must embed UnimplementedCompanyServer
 // for forward compatibility
@@ -91,6 +102,7 @@ type CompanyServer interface {
 	GetBussinessByOwner(context.Context, *GetBussinesByOwnerRequest) (*GetBusinessResponse, error)
 	// --- locations---
 	CreateLocation(context.Context, *CreateLocationRequest) (*CreateLocationResponse, error)
+	GetLocation(context.Context, *GetLocationRequest) (*GetLocationResponse, error)
 	mustEmbedUnimplementedCompanyServer()
 }
 
@@ -109,6 +121,9 @@ func (UnimplementedCompanyServer) GetBussinessByOwner(context.Context, *GetBussi
 }
 func (UnimplementedCompanyServer) CreateLocation(context.Context, *CreateLocationRequest) (*CreateLocationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateLocation not implemented")
+}
+func (UnimplementedCompanyServer) GetLocation(context.Context, *GetLocationRequest) (*GetLocationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLocation not implemented")
 }
 func (UnimplementedCompanyServer) mustEmbedUnimplementedCompanyServer() {}
 
@@ -195,6 +210,24 @@ func _Company_CreateLocation_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Company_GetLocation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLocationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CompanyServer).GetLocation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Company_GetLocation_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CompanyServer).GetLocation(ctx, req.(*GetLocationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Company_ServiceDesc is the grpc.ServiceDesc for Company service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -217,6 +250,10 @@ var Company_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateLocation",
 			Handler:    _Company_CreateLocation_Handler,
+		},
+		{
+			MethodName: "GetLocation",
+			Handler:    _Company_GetLocation_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

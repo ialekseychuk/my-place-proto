@@ -14,7 +14,7 @@ service Company {
 
     // --- locations---
     rpc CreateLocation(CreateLocationRequest) returns (CreateLocationResponse);
-    // rpc GetLocation(GetLocationRequest) returns (GetLocationResponse);
+    rpc GetLocation(GetLocationRequest) returns (GetLocationResponse);
     // rpc GetLocations(GetLocationsListRequest) returns (ListLocationsResponse);
 }
 
@@ -64,6 +64,14 @@ message CreateLocationRequest {
 }
 
 message CreateLocationResponse {
+    Location location = 1;
+}
+
+
+message GetLocationRequest {
+  string id = 1;
+}
+message GetLocationResponse {
     Location location = 1;
 }
 
