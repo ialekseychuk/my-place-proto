@@ -10,7 +10,7 @@ import "google/protobuf/empty.proto";
 
 service Company {
     // Create Company and default location
-    rpc RegisterBusiness(RegisterBusinessRequest) returns (RegisterBusinessRequest);
+    rpc RegisterBusiness(RegisterBusinessRequest) returns (RegisterBusinessResponse);
     // Create only business
     rpc CreateBusiness(CreateBusinessRequest) returns (CreateBusinessResponse);
     rpc GetBusiness(GetBusinessRequest) returns (GetBusinessResponse);
