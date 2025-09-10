@@ -20,7 +20,7 @@ service Company {
     // --- locations---
     rpc CreateLocation(CreateLocationRequest) returns (CreateLocationResponse);
     rpc GetLocation(GetLocationRequest) returns (GetLocationResponse);
-    // rpc GetLocations(GetLocationsListRequest) returns (ListLocationsResponse);
+    rpc GetLocationsByBusiness(GetBusinessLocationsListRequest) returns (ListLocationsResponse);
 }
 
 message RegisterBusinessRequest {
@@ -111,6 +111,14 @@ message GetLocationRequest {
 }
 message GetLocationResponse {
     Location location = 1;
+}
+
+message GetBusinessLocationsListRequest {
+    string business_id = 1;
+}
+
+message ListLocationsResponse {
+    repeated Location locations = 1;
 }
 
 message Location {

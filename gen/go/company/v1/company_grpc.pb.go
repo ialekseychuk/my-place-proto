@@ -19,12 +19,13 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Company_RegisterBusiness_FullMethodName   = "/company.Company/RegisterBusiness"
-	Company_CreateBusiness_FullMethodName     = "/company.Company/CreateBusiness"
-	Company_GetBusiness_FullMethodName        = "/company.Company/GetBusiness"
-	Company_GetBusinessByOwner_FullMethodName = "/company.Company/GetBusinessByOwner"
-	Company_CreateLocation_FullMethodName     = "/company.Company/CreateLocation"
-	Company_GetLocation_FullMethodName        = "/company.Company/GetLocation"
+	Company_RegisterBusiness_FullMethodName       = "/company.Company/RegisterBusiness"
+	Company_CreateBusiness_FullMethodName         = "/company.Company/CreateBusiness"
+	Company_GetBusiness_FullMethodName            = "/company.Company/GetBusiness"
+	Company_GetBusinessByOwner_FullMethodName     = "/company.Company/GetBusinessByOwner"
+	Company_CreateLocation_FullMethodName         = "/company.Company/CreateLocation"
+	Company_GetLocation_FullMethodName            = "/company.Company/GetLocation"
+	Company_GetLocationsByBusiness_FullMethodName = "/company.Company/GetLocationsByBusiness"
 )
 
 // CompanyClient is the client API for Company service.
@@ -41,6 +42,7 @@ type CompanyClient interface {
 	// --- locations---
 	CreateLocation(ctx context.Context, in *CreateLocationRequest, opts ...grpc.CallOption) (*CreateLocationResponse, error)
 	GetLocation(ctx context.Context, in *GetLocationRequest, opts ...grpc.CallOption) (*GetLocationResponse, error)
+	GetLocationsByBusiness(ctx context.Context, in *GetBusinessLocationsListRequest, opts ...grpc.CallOption) (*ListLocationsResponse, error)
 }
 
 type companyClient struct {
@@ -105,6 +107,15 @@ func (c *companyClient) GetLocation(ctx context.Context, in *GetLocationRequest,
 	return out, nil
 }
 
+func (c *companyClient) GetLocationsByBusiness(ctx context.Context, in *GetBusinessLocationsListRequest, opts ...grpc.CallOption) (*ListLocationsResponse, error) {
+	out := new(ListLocationsResponse)
+	err := c.cc.Invoke(ctx, Company_GetLocationsByBusiness_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CompanyServer is the server API for Company service.
 // All implementations must embed UnimplementedCompanyServer
 // for forward compatibility
@@ -119,6 +130,7 @@ type CompanyServer interface {
 	// --- locations---
 	CreateLocation(context.Context, *CreateLocationRequest) (*CreateLocationResponse, error)
 	GetLocation(context.Context, *GetLocationRequest) (*GetLocationResponse, error)
+	GetLocationsByBusiness(context.Context, *GetBusinessLocationsListRequest) (*ListLocationsResponse, error)
 	mustEmbedUnimplementedCompanyServer()
 }
 
@@ -143,6 +155,9 @@ func (UnimplementedCompanyServer) CreateLocation(context.Context, *CreateLocatio
 }
 func (UnimplementedCompanyServer) GetLocation(context.Context, *GetLocationRequest) (*GetLocationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetLocation not implemented")
+}
+func (UnimplementedCompanyServer) GetLocationsByBusiness(context.Context, *GetBusinessLocationsListRequest) (*ListLocationsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLocationsByBusiness not implemented")
 }
 func (UnimplementedCompanyServer) mustEmbedUnimplementedCompanyServer() {}
 
@@ -265,6 +280,24 @@ func _Company_GetLocation_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Company_GetLocationsByBusiness_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetBusinessLocationsListRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CompanyServer).GetLocationsByBusiness(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Company_GetLocationsByBusiness_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CompanyServer).GetLocationsByBusiness(ctx, req.(*GetBusinessLocationsListRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Company_ServiceDesc is the grpc.ServiceDesc for Company service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -295,6 +328,10 @@ var Company_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetLocation",
 			Handler:    _Company_GetLocation_Handler,
+		},
+		{
+			MethodName: "GetLocationsByBusiness",
+			Handler:    _Company_GetLocationsByBusiness_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
