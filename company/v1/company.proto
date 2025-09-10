@@ -51,8 +51,9 @@ message RegisterBusinessRequest {
 
 message RegisterBusinessResponse {
     Business business = 1;
-    identity.User     owner    = 2; 
-    string   message  = 3;
+    identity.User     owner    = 2;
+    identity.AuthToken auth_token= 3; 
+    string   message  = 4;
 }
 
 message CreateBusinessRequest {
