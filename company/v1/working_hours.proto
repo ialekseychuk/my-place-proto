@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+package company;
+option go_package = "github.com/ialekseychuk/my-place-proto/gen/go/company/v1;companyv1";
+
+// Service for managing working hours for locations
+service WorkingHoursService {
+  // Set working hours for a location
+  rpc SetLocationWorkingHours(SetLocationWorkingHoursRequest) returns (SetLocationWorkingHoursResponse);
+  
+  // Get working hours for a location
+  rpc GetLocationWorkingHours(GetLocationWorkingHoursRequest) returns (GetLocationWorkingHoursResponse);
+  
+  // Delete working hours for a location
+  rpc DeleteLocationWorkingHours(DeleteLocationWorkingHoursRequest) returns (DeleteLocationWorkingHoursResponse);
+}
+
+// Represents working hours configuration for all days of the week for a location
+message LocationWorkingHours {
+  string id = 1;
+  string location_id = 2;
+  DaySchedule monday = 3;
+  DaySchedule tuesday = 4;
+  DaySchedule wednesday = 5;
+  DaySchedule thursday = 6;
+  DaySchedule friday = 7;
+  DaySchedule saturday = 8;
+  DaySchedule sunday = 9;
+}
+
+// Represents schedule for a single day
+message DaySchedule {
+  string day_of_week = 1; 
+  string start = 2;  // Time in HH:MM format
+  string end = 3;    // Time in HH:MM format
+  bool enabled = 4;  // Whether the business is open on this day
+}
+
+// Request to set working hours for a location
+message SetLocationWorkingHoursRequest {
+  string location_id = 1;
+  DaySchedule monday = 2;
+  DaySchedule tuesday = 3;
+  DaySchedule wednesday = 4;
+  DaySchedule thursday = 5;
+  DaySchedule friday = 6;
+  DaySchedule saturday = 7;
+  DaySchedule sunday = 8;
+}
+
+// Response after setting working hours for a location
+message SetLocationWorkingHoursResponse {
+  LocationWorkingHours working_hours = 1;
+}
+
+// Request to get working hours for a location
+message GetLocationWorkingHoursRequest {
+  string location_id = 1;
+}
+
+// Response with working hours for a location
+message GetLocationWorkingHoursResponse {
+  LocationWorkingHours working_hours = 1;
+}
+
+// Request to update working hours for a location
+message UpdateLocationWorkingHoursRequest {
+  string location_id = 1;
+  DaySchedule monday = 2;
+  DaySchedule tuesday = 3;
+  DaySchedule wednesday = 4;
+  DaySchedule thursday = 5;
+  DaySchedule friday = 6;
+  DaySchedule saturday = 7;
+  DaySchedule sunday = 8;
+}
+
+// Response after updating working hours for a location
+message UpdateLocationWorkingHoursResponse {
+  LocationWorkingHours working_hours = 1;
+}
+
+// Request to delete working hours for a location
+message DeleteLocationWorkingHoursRequest {
+  string location_id = 1;
+}
+
+// Response after deleting working hours for a location
+message DeleteLocationWorkingHoursResponse {
+  bool success = 1;
+  string message = 2;
+}

@@ -4,6 +4,7 @@ package company;
 option go_package = "github.com/ialekseychuk/my-place-proto/gen/go/company/v1;companyv1";
 
 import "identity/v1/identity.proto";
+import "company/v1/working_hours.proto";
 
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
@@ -46,6 +47,9 @@ message RegisterBusinessRequest {
     string owner_email = 14;
     string owner_phone = 15;
     string owner_password = 16;
+
+    // default location schedule
+     repeated DaySchedule default_schedule = 17;
 
 }
 
