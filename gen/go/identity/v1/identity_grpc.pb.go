@@ -19,18 +19,18 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Identity_Login_FullMethodName         = "/identity.Identity/Login"
-	Identity_Register_FullMethodName      = "/identity.Identity/Register"
-	Identity_Logout_FullMethodName        = "/identity.Identity/Logout"
-	Identity_RefreshToken_FullMethodName  = "/identity.Identity/RefreshToken"
-	Identity_ValidateToken_FullMethodName = "/identity.Identity/ValidateToken"
-	Identity_GetMe_FullMethodName         = "/identity.Identity/GetMe"
+	IdentityService_Login_FullMethodName         = "/identity.v1.IdentityService/Login"
+	IdentityService_Register_FullMethodName      = "/identity.v1.IdentityService/Register"
+	IdentityService_Logout_FullMethodName        = "/identity.v1.IdentityService/Logout"
+	IdentityService_RefreshToken_FullMethodName  = "/identity.v1.IdentityService/RefreshToken"
+	IdentityService_ValidateToken_FullMethodName = "/identity.v1.IdentityService/ValidateToken"
+	IdentityService_GetMe_FullMethodName         = "/identity.v1.IdentityService/GetMe"
 )
 
-// IdentityClient is the client API for Identity service.
+// IdentityServiceClient is the client API for IdentityService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type IdentityClient interface {
+type IdentityServiceClient interface {
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
 	Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error)
 	Logout(ctx context.Context, in *LogoutRequest, opts ...grpc.CallOption) (*LogoutResponse, error)
@@ -40,72 +40,72 @@ type IdentityClient interface {
 	GetMe(ctx context.Context, in *GetMeRequest, opts ...grpc.CallOption) (*GetMeResponse, error)
 }
 
-type identityClient struct {
+type identityServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewIdentityClient(cc grpc.ClientConnInterface) IdentityClient {
-	return &identityClient{cc}
+func NewIdentityServiceClient(cc grpc.ClientConnInterface) IdentityServiceClient {
+	return &identityServiceClient{cc}
 }
 
-func (c *identityClient) Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error) {
+func (c *identityServiceClient) Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error) {
 	out := new(LoginResponse)
-	err := c.cc.Invoke(ctx, Identity_Login_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, IdentityService_Login_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *identityClient) Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error) {
+func (c *identityServiceClient) Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error) {
 	out := new(RegisterResponse)
-	err := c.cc.Invoke(ctx, Identity_Register_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, IdentityService_Register_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *identityClient) Logout(ctx context.Context, in *LogoutRequest, opts ...grpc.CallOption) (*LogoutResponse, error) {
+func (c *identityServiceClient) Logout(ctx context.Context, in *LogoutRequest, opts ...grpc.CallOption) (*LogoutResponse, error) {
 	out := new(LogoutResponse)
-	err := c.cc.Invoke(ctx, Identity_Logout_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, IdentityService_Logout_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *identityClient) RefreshToken(ctx context.Context, in *RefreshTokenRequest, opts ...grpc.CallOption) (*RefreshTokenResponse, error) {
+func (c *identityServiceClient) RefreshToken(ctx context.Context, in *RefreshTokenRequest, opts ...grpc.CallOption) (*RefreshTokenResponse, error) {
 	out := new(RefreshTokenResponse)
-	err := c.cc.Invoke(ctx, Identity_RefreshToken_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, IdentityService_RefreshToken_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *identityClient) ValidateToken(ctx context.Context, in *ValidateTokenRequest, opts ...grpc.CallOption) (*ValidateTokenResponse, error) {
+func (c *identityServiceClient) ValidateToken(ctx context.Context, in *ValidateTokenRequest, opts ...grpc.CallOption) (*ValidateTokenResponse, error) {
 	out := new(ValidateTokenResponse)
-	err := c.cc.Invoke(ctx, Identity_ValidateToken_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, IdentityService_ValidateToken_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *identityClient) GetMe(ctx context.Context, in *GetMeRequest, opts ...grpc.CallOption) (*GetMeResponse, error) {
+func (c *identityServiceClient) GetMe(ctx context.Context, in *GetMeRequest, opts ...grpc.CallOption) (*GetMeResponse, error) {
 	out := new(GetMeResponse)
-	err := c.cc.Invoke(ctx, Identity_GetMe_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, IdentityService_GetMe_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// IdentityServer is the server API for Identity service.
-// All implementations must embed UnimplementedIdentityServer
+// IdentityServiceServer is the server API for IdentityService service.
+// All implementations must embed UnimplementedIdentityServiceServer
 // for forward compatibility
-type IdentityServer interface {
+type IdentityServiceServer interface {
 	Login(context.Context, *LoginRequest) (*LoginResponse, error)
 	Register(context.Context, *RegisterRequest) (*RegisterResponse, error)
 	Logout(context.Context, *LogoutRequest) (*LogoutResponse, error)
@@ -113,182 +113,182 @@ type IdentityServer interface {
 	ValidateToken(context.Context, *ValidateTokenRequest) (*ValidateTokenResponse, error)
 	// profile methods
 	GetMe(context.Context, *GetMeRequest) (*GetMeResponse, error)
-	mustEmbedUnimplementedIdentityServer()
+	mustEmbedUnimplementedIdentityServiceServer()
 }
 
-// UnimplementedIdentityServer must be embedded to have forward compatible implementations.
-type UnimplementedIdentityServer struct {
+// UnimplementedIdentityServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedIdentityServiceServer struct {
 }
 
-func (UnimplementedIdentityServer) Login(context.Context, *LoginRequest) (*LoginResponse, error) {
+func (UnimplementedIdentityServiceServer) Login(context.Context, *LoginRequest) (*LoginResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
 }
-func (UnimplementedIdentityServer) Register(context.Context, *RegisterRequest) (*RegisterResponse, error) {
+func (UnimplementedIdentityServiceServer) Register(context.Context, *RegisterRequest) (*RegisterResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Register not implemented")
 }
-func (UnimplementedIdentityServer) Logout(context.Context, *LogoutRequest) (*LogoutResponse, error) {
+func (UnimplementedIdentityServiceServer) Logout(context.Context, *LogoutRequest) (*LogoutResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Logout not implemented")
 }
-func (UnimplementedIdentityServer) RefreshToken(context.Context, *RefreshTokenRequest) (*RefreshTokenResponse, error) {
+func (UnimplementedIdentityServiceServer) RefreshToken(context.Context, *RefreshTokenRequest) (*RefreshTokenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RefreshToken not implemented")
 }
-func (UnimplementedIdentityServer) ValidateToken(context.Context, *ValidateTokenRequest) (*ValidateTokenResponse, error) {
+func (UnimplementedIdentityServiceServer) ValidateToken(context.Context, *ValidateTokenRequest) (*ValidateTokenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ValidateToken not implemented")
 }
-func (UnimplementedIdentityServer) GetMe(context.Context, *GetMeRequest) (*GetMeResponse, error) {
+func (UnimplementedIdentityServiceServer) GetMe(context.Context, *GetMeRequest) (*GetMeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMe not implemented")
 }
-func (UnimplementedIdentityServer) mustEmbedUnimplementedIdentityServer() {}
+func (UnimplementedIdentityServiceServer) mustEmbedUnimplementedIdentityServiceServer() {}
 
-// UnsafeIdentityServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to IdentityServer will
+// UnsafeIdentityServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to IdentityServiceServer will
 // result in compilation errors.
-type UnsafeIdentityServer interface {
-	mustEmbedUnimplementedIdentityServer()
+type UnsafeIdentityServiceServer interface {
+	mustEmbedUnimplementedIdentityServiceServer()
 }
 
-func RegisterIdentityServer(s grpc.ServiceRegistrar, srv IdentityServer) {
-	s.RegisterService(&Identity_ServiceDesc, srv)
+func RegisterIdentityServiceServer(s grpc.ServiceRegistrar, srv IdentityServiceServer) {
+	s.RegisterService(&IdentityService_ServiceDesc, srv)
 }
 
-func _Identity_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _IdentityService_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(LoginRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(IdentityServer).Login(ctx, in)
+		return srv.(IdentityServiceServer).Login(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Identity_Login_FullMethodName,
+		FullMethod: IdentityService_Login_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(IdentityServer).Login(ctx, req.(*LoginRequest))
+		return srv.(IdentityServiceServer).Login(ctx, req.(*LoginRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Identity_Register_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _IdentityService_Register_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RegisterRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(IdentityServer).Register(ctx, in)
+		return srv.(IdentityServiceServer).Register(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Identity_Register_FullMethodName,
+		FullMethod: IdentityService_Register_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(IdentityServer).Register(ctx, req.(*RegisterRequest))
+		return srv.(IdentityServiceServer).Register(ctx, req.(*RegisterRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Identity_Logout_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _IdentityService_Logout_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(LogoutRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(IdentityServer).Logout(ctx, in)
+		return srv.(IdentityServiceServer).Logout(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Identity_Logout_FullMethodName,
+		FullMethod: IdentityService_Logout_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(IdentityServer).Logout(ctx, req.(*LogoutRequest))
+		return srv.(IdentityServiceServer).Logout(ctx, req.(*LogoutRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Identity_RefreshToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _IdentityService_RefreshToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RefreshTokenRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(IdentityServer).RefreshToken(ctx, in)
+		return srv.(IdentityServiceServer).RefreshToken(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Identity_RefreshToken_FullMethodName,
+		FullMethod: IdentityService_RefreshToken_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(IdentityServer).RefreshToken(ctx, req.(*RefreshTokenRequest))
+		return srv.(IdentityServiceServer).RefreshToken(ctx, req.(*RefreshTokenRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Identity_ValidateToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _IdentityService_ValidateToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ValidateTokenRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(IdentityServer).ValidateToken(ctx, in)
+		return srv.(IdentityServiceServer).ValidateToken(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Identity_ValidateToken_FullMethodName,
+		FullMethod: IdentityService_ValidateToken_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(IdentityServer).ValidateToken(ctx, req.(*ValidateTokenRequest))
+		return srv.(IdentityServiceServer).ValidateToken(ctx, req.(*ValidateTokenRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Identity_GetMe_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _IdentityService_GetMe_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetMeRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(IdentityServer).GetMe(ctx, in)
+		return srv.(IdentityServiceServer).GetMe(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Identity_GetMe_FullMethodName,
+		FullMethod: IdentityService_GetMe_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(IdentityServer).GetMe(ctx, req.(*GetMeRequest))
+		return srv.(IdentityServiceServer).GetMe(ctx, req.(*GetMeRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Identity_ServiceDesc is the grpc.ServiceDesc for Identity service.
+// IdentityService_ServiceDesc is the grpc.ServiceDesc for IdentityService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Identity_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "identity.Identity",
-	HandlerType: (*IdentityServer)(nil),
+var IdentityService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "identity.v1.IdentityService",
+	HandlerType: (*IdentityServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "Login",
-			Handler:    _Identity_Login_Handler,
+			Handler:    _IdentityService_Login_Handler,
 		},
 		{
 			MethodName: "Register",
-			Handler:    _Identity_Register_Handler,
+			Handler:    _IdentityService_Register_Handler,
 		},
 		{
 			MethodName: "Logout",
-			Handler:    _Identity_Logout_Handler,
+			Handler:    _IdentityService_Logout_Handler,
 		},
 		{
 			MethodName: "RefreshToken",
-			Handler:    _Identity_RefreshToken_Handler,
+			Handler:    _IdentityService_RefreshToken_Handler,
 		},
 		{
 			MethodName: "ValidateToken",
-			Handler:    _Identity_ValidateToken_Handler,
+			Handler:    _IdentityService_ValidateToken_Handler,
 		},
 		{
 			MethodName: "GetMe",
-			Handler:    _Identity_GetMe_Handler,
+			Handler:    _IdentityService_GetMe_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -1,10 +1,10 @@
 version: v1
 plugins:
   - plugin: go
-    out: ../business-service/internal/gen
+    out: gen/go
     opt:
       - paths=source_relative
   - plugin: go-grpc
-    out: ../business-service/internal/gen
+    out: gen/go
     opt:
       - paths=source_relative

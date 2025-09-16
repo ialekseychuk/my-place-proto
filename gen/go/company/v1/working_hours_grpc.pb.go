@@ -19,9 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	WorkingHoursService_SetLocationWorkingHours_FullMethodName    = "/company.WorkingHoursService/SetLocationWorkingHours"
-	WorkingHoursService_GetLocationWorkingHours_FullMethodName    = "/company.WorkingHoursService/GetLocationWorkingHours"
-	WorkingHoursService_DeleteLocationWorkingHours_FullMethodName = "/company.WorkingHoursService/DeleteLocationWorkingHours"
+	WorkingHoursService_SetLocationWorkingHours_FullMethodName    = "/company.v1.WorkingHoursService/SetLocationWorkingHours"
+	WorkingHoursService_GetLocationWorkingHours_FullMethodName    = "/company.v1.WorkingHoursService/GetLocationWorkingHours"
+	WorkingHoursService_DeleteLocationWorkingHours_FullMethodName = "/company.v1.WorkingHoursService/DeleteLocationWorkingHours"
 )
 
 // WorkingHoursServiceClient is the client API for WorkingHoursService service.
@@ -168,7 +168,7 @@ func _WorkingHoursService_DeleteLocationWorkingHours_Handler(srv interface{}, ct
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var WorkingHoursService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "company.WorkingHoursService",
+	ServiceName: "company.v1.WorkingHoursService",
 	HandlerType: (*WorkingHoursServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
