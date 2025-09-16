@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package company;
+package company.v1;
 option go_package = "github.com/ialekseychuk/my-place-proto/gen/go/company/v1;companyv1";
 
 // Service for managing working hours for locations

@@ -1,27 +1,28 @@
 syntax = "proto3";
 
-package company;
+package company.v1;
 option go_package = "github.com/ialekseychuk/my-place-proto/gen/go/company/v1;companyv1";
 
 import "identity/v1/identity.proto";
 import "company/v1/working_hours.proto";
 
 import "google/protobuf/timestamp.proto";
-import "google/protobuf/empty.proto";
 
-service Company {
+service CompanyService {
     // Create Company and default location
     rpc RegisterBusiness(RegisterBusinessRequest) returns (RegisterBusinessResponse);
     // Create only business
     rpc CreateBusiness(CreateBusinessRequest) returns (CreateBusinessResponse);
     rpc GetBusiness(GetBusinessRequest) returns (GetBusinessResponse);
   //  rpc UpdateBusiness(UpdateBusinessRequest) returns (UpdateBusinessResponse);
-    rpc GetBusinessByOwner(GetBussinesByOwnerRequest) returns (GetBusinessResponse);
+    rpc GetBusinessByOwner(GetBusinessByOwnerRequest) returns (GetBusinessResponse);
 
     // --- locations---
     rpc CreateLocation(CreateLocationRequest) returns (CreateLocationResponse);
     rpc GetLocation(GetLocationRequest) returns (GetLocationResponse);
-    rpc GetLocationsByBusiness(GetBusinessLocationsListRequest) returns (ListLocationsResponse);
+    rpc GetLocationsByBusiness(GetLocationsByBusinessRequest) returns (GetLocationsByBusinessResponse);
+    rpc UpdateLocation(UpdateLocationRequest) returns (UpdateLocationResponse);
+    rpc DeleteLocation(DeleteLocationRequest) returns (DeleteLocationResponse);
 }
 
 message RegisterBusinessRequest {
@@ -55,8 +56,8 @@ message RegisterBusinessRequest {
 
 message RegisterBusinessResponse {
     Business business = 1;
-    identity.User     owner    = 2;
-    identity.AuthToken auth_token= 3; 
+    identity.v1.User     owner    = 2;
+    identity.v1.AuthToken auth_token= 3; 
     string   message  = 4;
 }
 
@@ -76,12 +77,16 @@ message GetBusinessResponse {
     Business business = 1;
 }
 
-message GetBussinesByOwnerRequest {
+message GetBusinessByOwnerRequest {
     string owner_id = 1;
 }
 
-message ListBusinessResponse {
-    repeated Business business = 1;
+message GetLocationsByBusinessRequest {
+    string business_id = 1;
+}
+
+message GetLocationsByBusinessResponse {
+    repeated Location locations = 1;
 }
 
 message Business {
@@ -117,12 +122,28 @@ message GetLocationResponse {
     Location location = 1;
 }
 
-message GetBusinessLocationsListRequest {
-    string business_id = 1;
+message UpdateLocationRequest {
+    string id = 1;
+    string business_id = 2;
+    string name = 3;
+    string address = 4;
+    string city = 5;
+    string phone = 6;
+    string timezone = 7;
+    string currency = 8;
 }
 
-message ListLocationsResponse {
-    repeated Location locations = 1;
+message UpdateLocationResponse {
+    Location location = 1;
+}
+
+message DeleteLocationRequest {
+    string id = 1;
+}
+
+message DeleteLocationResponse {
+    bool success = 1;
+    string message = 2;
 }
 
 message Location {

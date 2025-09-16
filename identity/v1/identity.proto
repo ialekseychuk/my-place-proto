@@ -1,12 +1,12 @@
 syntax = "proto3";
 
-package identity;
+package identity.v1;
 option go_package = "github.com/ialekseychuk/my-place-proto/gen/go/identity/v1;identityv1";
 
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
 
-service Identity {
+service IdentityService {
   rpc Login(LoginRequest) returns (LoginResponse);
   rpc Register(RegisterRequest) returns (RegisterResponse);
   rpc Logout(LogoutRequest) returns (LogoutResponse);
